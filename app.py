@@ -14,8 +14,8 @@ This is the **EDA App** created in Streamlit using the **pandas-profiling** libr
 ''')
 
 # Upload CSV data
-with st.sidebar.header('1. Upload your CSV data'):
-    uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
+with st.sidebar.header('1. Upload your CSV/xlsx data'):
+    uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv","xlsx"])
     #st.sidebar.markdown("""
 #[Example CSV input file](https://raw.githubusercontent.com/dataprofessor/data/master/delaney_solubility_with_descriptors.csv)
 #""")
@@ -44,10 +44,10 @@ else:
         #        columns=['a', 'b', 'c', 'd', 'e']
         #    )
         #    return a
-        df = load_data()
-        pr = ProfileReport(df, explorative=True)
-        st.header('**Input DataFrame**')
-        st.write(df)
-        st.write('---')
-        st.header('**Pandas Profiling Report**')
-        st_profile_report(pr)
+#         df = load_data()
+#         pr = ProfileReport(df, explorative=True)
+#         st.header('**Input DataFrame**')
+#         st.write(df)
+#         st.write('---')
+#         st.header('**Pandas Profiling Report**')
+#         st_profile_report(pr)
