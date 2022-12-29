@@ -30,7 +30,7 @@ if uploaded_file is not None:
     st.write('---')
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
-elif:
+else uploaded_file is not None:
     @st.cache
     def load_xlsx():
         xlsx= pd.read_excel(uploaded_file)
@@ -43,6 +43,6 @@ elif:
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
     
-else:
-    st.info('Please upload your file.')
+# else:
+#     st.info('Please upload your file.')
   
