@@ -31,8 +31,8 @@ if uploaded_file is not None:
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
 elif uploaded_file is not None:
-        @st.cache
-    def load_xlsx():
+      @st.cache
+      def load_xlsx():
         xlsx = pd.read_excel(uploaded_file)
         return xlsx
     df = load_xlsx()
