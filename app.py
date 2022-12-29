@@ -32,7 +32,7 @@ if uploaded_file is not None:
     st_profile_report(pr)
 elif uploaded_file is not None:
     @st.cache
-    uploaded_file.to_csv ("Test.csv", 
+    uploaded_file.to_csv ("uploaded_file.csv", 
                   index = None,
                   header=True)
     def load_csv():
