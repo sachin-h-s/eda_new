@@ -30,12 +30,15 @@ if uploaded_file is not None:
     st.write('---')
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
-else uploaded_file is not None:
+elif uploaded_file is not None:
     @st.cache
-    def load_xlsx():
-        xlsx= pd.read_excel(uploaded_file)
-        return xlsx
-    df = load_xlsx()
+    uploaded_file.to_csv ("Test.csv", 
+                  index = None,
+                  header=True)
+    def load_csv():
+        csv = pd.read_csv(uploaded_file)
+        return csv
+    df = load_csv()
     pr = ProfileReport(df, explorative=True)
     st.header('**Input DataFrame**')
     st.write(df)
@@ -43,6 +46,6 @@ else uploaded_file is not None:
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
     
-# else:
-#     st.info('Please upload your file.')
+else:
+    st.info('Please upload your file.')
   
