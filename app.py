@@ -30,21 +30,21 @@ if uploaded_file is not None:
     st.write('---')
     st.header('**Pandas Profiling Report**')
     st_profile_report(pr)
-elif uploaded_file is not None:
-    @st.cache
-    uploaded_file.to_csv ("uploaded_file.csv", 
-                  index = None,
-                  header=True)
-    def load_csv():
-        csv = pd.read_csv(uploaded_file)
-        return csv
-    df = load_csv()
-    pr = ProfileReport(df, explorative=True)
-    st.header('**Input DataFrame**')
-    st.write(df)
-    st.write('---')
-    st.header('**Pandas Profiling Report**')
-    st_profile_report(pr)
+# elif uploaded_file is not None:
+#     @st.cache
+#     uploaded_file.to_csv ("uploaded_file.csv", 
+#                   index = None,
+#                   header=True)
+#     def load_csv():
+#         csv = pd.read_csv(uploaded_file)
+#         return csv
+#     df = load_csv()
+#     pr = ProfileReport(df, explorative=True)
+#     st.header('**Input DataFrame**')
+#     st.write(df)
+#     st.write('---')
+#     st.header('**Pandas Profiling Report**')
+#     st_profile_report(pr)
     
 else:
     st.info('Please upload your file.')
