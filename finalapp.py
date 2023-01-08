@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pandas_profiling
+from pandas_profiling import ProfileReport
 
 #Function to load data from a CSV file
 @st.cache
@@ -47,7 +47,7 @@ elif data_source == "SQL":
 # Generate report
 if "df" in locals():
     if st.button("Generate report"):
-        report = generate_report(df)
+        report = ProfileReport(df)
         st.write(report)
 	
 	
