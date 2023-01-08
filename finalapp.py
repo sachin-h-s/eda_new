@@ -21,7 +21,7 @@ def load_sql(query, con):
 	return pd.read_sql(query, con)
 
 #Function to generate a pandas profiling report
-def generate_report(df):
+def ProfileReport(df):
 	return pandas_profiling.ProfileReport(df)
 
 #Main function
@@ -50,7 +50,7 @@ elif data_source == "SQL":
 # Generate report
 if "df" in locals():
 	if st.button("Generate report"):
-		report = generate_report(df)
+		report = ProfileReport(df, explorative=True)
 		st.write(report)
 	
 	
