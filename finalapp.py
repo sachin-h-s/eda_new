@@ -50,4 +50,4 @@ if "df" in locals():
         report = generate_report(df)
         st.write(report)
 if name == "main":
-main()
+	main()
