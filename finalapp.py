@@ -13,7 +13,8 @@ def load_csv(file):
 #Function to load data from an XLSX file
 @st.cache
 def load_xlsx(file):
-	return pd.read_excel(file)
+	csv=pd.read_excel(file)
+	return csv.to_csv('file.csv', encoding='utf-8', index=False)
 
 #Function to load data from a SQL database
 @st.cache
