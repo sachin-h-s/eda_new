@@ -15,8 +15,8 @@ def load_csv(file):
 def load_xlsx(file):
 	return pd.read_excel(file)
 
-def save_csv(df, filename):
-    df.to_csv(filename, index=False)
+def save_csv(file, filename):
+    file.to_csv(filename, index=False)
 	
 
 #Function to load data from a SQL database
@@ -58,12 +58,7 @@ if "df" in locals():
 		st_profile_report(report)
 		#st.write(report)
 
-if "df" in locals():
-	if st.button("Convert to CSV"):
-            filename = st.text_input("Enter filename")
-            if filename:
-                save_csv(df, filename)
-                st.success("Data saved to CSV file")
+
 	
 	
 if __name__=='__main__':
