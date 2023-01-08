@@ -49,7 +49,7 @@ elif data_source == "SQL":
 # Generate report
 if "df" in locals():
 	if st.button("Generate report"):
-		report = ProfileReport(df)
+		report = generate_report(df)
 st.write(report)
 	
 	
