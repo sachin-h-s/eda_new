@@ -47,15 +47,8 @@ elif data_source == "SQL":
 # Generate report
 if "df" in locals():
     if st.button("Generate report"):
-	df = load_csv()
-	pr = ProfileReport(df, explorative=True)
-        st.header('**Input DataFrame**')
-        st.write(df)
-        st.write('---')
-        st.header('**Pandas Profiling Report**')
-        #st_profile_report(pr)
-        #report = ProfileReport(df)
-        #st.write(report)
+	report = ProfileReport(df)
+        st.write(report))
 	
 	
 if __name__=='__main__':
