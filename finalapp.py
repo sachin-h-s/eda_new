@@ -16,7 +16,7 @@ def load_xlsx(file):
 	return pd.read_excel(file)
 
 def save_csv(file):
-    file.to_csv(file)
+    load_xlsx(file).to_csv(file)
 	
 
 #Function to load data from a SQL database
