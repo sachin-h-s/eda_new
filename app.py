@@ -21,8 +21,8 @@ def load_sql(query, con):
     return pd.read_sql(query, con)
 
 # Function to generate a pandas profiling report
-def generate_report(df):
-    return pandas_profiling.ProfileReport(df)
+def generate_report(file):
+    return pandas_profiling.ProfileReport(file)
 
 # Main function
 def main():
@@ -47,8 +47,8 @@ def main():
             df = load_sql(query, con)
 
     # Generate report
-    if "df" in locals():
-        report = generate_report(df)
+    if "file" in locals():
+        report = generate_report(file)
         st.write(report)
 
 if __name__ == "__main__":
