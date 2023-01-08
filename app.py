@@ -1,51 +1,52 @@
-import numpy as np
-import pandas as pd
 import streamlit as st
-from pandas_profiling import ProfileReport
-from streamlit_pandas_profiling import st_profile_report
+import pandas as pd
+import pandas_profiling
 
-# Web App Title
-st.markdown('''
-# **The EDA App**
+# Function to load data from a CSV file
+@st.cache
+def load_csv(file):
+    return pd.read_csv(file)
 
-This is the **EDA App** created in Streamlit using the **pandas-profiling** library.
+# Function to load data from an XLSX file
+@st.cache
+def load_xlsx(file):
+    return pd.read_excel(file)
 
----
-''')
+# Function to load data from a SQL database
+@st.cache
+def load_sql(query, con):
+    return pd.read_sql(query, con)
 
-# Upload CSV data
-with st.sidebar.header('1. Upload your CSV or xlsx data'):
-    uploaded_file = st.sidebar.file_uploader("Upload your input CSV or xlsx file", type=["csv","xlsx"])
+# Function to generate a pandas profiling report
+def generate_report(df):
+    return pandas_profiling.ProfileReport(df)
 
-# Pandas Profiling Report
-if uploaded_file is not None:
-    @st.cache
-    def load_csv():
-        csv = pd.read_csv(uploaded_file)
-        return csv
-    df = load_csv()
-    pr = ProfileReport(df, explorative=True)
-    st.header('**Input DataFrame**')
-    st.write(df)
-    st.write('---')
-    st.header('**Pandas Profiling Report**')
-    st_profile_report(pr)
-# elif uploaded_file is not None:
-#     @st.cache
-#     uploaded_file.to_csv ("uploaded_file.csv", 
-#                   index = None,
-#                   header=True)
-#     def load_csv():
-#         csv = pd.read_csv(uploaded_file)
-#         return csv
-#     df = load_csv()
-#     pr = ProfileReport(df, explorative=True)
-#     st.header('**Input DataFrame**')
-#     st.write(df)
-#     st.write('---')
-#     st.header('**Pandas Profiling Report**')
-#     st_profile_report(pr)
-    
-else:
-    st.info('Please upload your file.')
-  
+# Main function
+def main():
+    st.title("Exploratory Data Analysis App")
+
+    # Select data source
+    data_source = st.sidebar.selectbox("Select Data Source", ["CSV", "XLSX", "SQL"])
+
+    # Load data
+    if data_source == "CSV":
+        file = st.file_uploader("Upload CSV file", type="csv")
+        if file is not None:
+            df = load_csv(file)
+    elif data_source == "XLSX":
+        file = st.file_uploader("Upload XLSX file", type="xlsx")
+        if file is not None:
+            df = load_xlsx(file)
+    elif data_source == "SQL":
+        query = st.text_input("SQL Query")
+        con = st.text_input("SQL Connection String")
+        if query and con:
+            df = load_sql(query, con)
+
+    # Generate report
+    if "df" in locals():
+        report = generate_report(df)
+        st.write(report)
+
+if __name__ == "__main__":
+    main()
