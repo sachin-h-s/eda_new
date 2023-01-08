@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pandas_profiling
 import streamlit as st
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
@@ -21,7 +22,7 @@ def load_sql(query, con):
     return pd.read_sql(query, con)
 
 # Function to generate a pandas profiling report
-def generate_report(file):
+def ProfileReport(file):
     return pandas_profiling.ProfileReport(file)
 
 # Main function
