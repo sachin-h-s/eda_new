@@ -15,8 +15,8 @@ def load_csv(file):
 def load_xlsx(file):
 	return pd.read_excel(file)
 
-def save_csv(file, filename):
-    file.to_csv(filename, index=False)
+def save_csv(file, file):
+    file.to_csv(file, index=False)
 	
 
 #Function to load data from a SQL database
@@ -45,7 +45,7 @@ if data_source == "CSV":
 elif data_source == "XLSX":
     file = st.file_uploader("Upload XLSX file", type="xlsx")
     if file is not None:
-        df = load_xlsx(file)
+        df = save_csv(file)
 elif data_source == "SQL":
     query = st.text_input("SQL Query")
     con = st.text_input("SQL Connection String")
