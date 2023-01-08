@@ -46,7 +46,6 @@ elif data_source == "SQL":
     con = st.text_input("SQL Connection String")
     if query and con:
         df = load_sql(query, con)
-
 # Generate report
 if "df" in locals():
 	if st.button("Generate report"):
