@@ -49,5 +49,7 @@ if "df" in locals():
     if st.button("Generate report"):
         report = generate_report(df)
         st.write(report)
+	
+	
 if __name__=='__main__':
     main()
