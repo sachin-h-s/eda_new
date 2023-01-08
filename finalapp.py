@@ -15,7 +15,7 @@ def load_csv(file):
 def load_xlsx(file):
 	return pd.read_excel(file)
 
-def save_csv(file, file):
+def save_csv(file):
     file.to_csv(file, index=False)
 	
 
