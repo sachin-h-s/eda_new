@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import pandas_profiling
+from pandas_profiling import ProfileReport
+
 
 # Function to load data from a CSV file
 @st.cache
