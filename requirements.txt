@@ -1,7 +1,7 @@
 streamlit==0.71.0
 pandas==1.1.3
 numpy==1.19.2
-pip install xlrd
+xlrd
 pandas-profiling==2.10.0
 streamlit-pandas-profiling==0.1.1
 Jinja2==3.0.3
