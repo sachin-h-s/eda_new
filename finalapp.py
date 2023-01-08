@@ -50,9 +50,9 @@ elif data_source == "SQL":
 # Generate report
 if "df" in locals():
 	if st.button("Generate report"):
-		report = ProfileReport(df, explorative=True)
+		report = ProfileReport(df)
 		st_profile_report(report)
-		st.write(report)
+		#st.write(report)
 	
 	
 if __name__=='__main__':
