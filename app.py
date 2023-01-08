@@ -51,7 +51,7 @@ def main():
 if "df" in locals():
     if st.button("Generate report"):
         report = ProfileReport(df, explorative=True)
-st.write(report)
+        st.write(report)
 
 if __name__ == "__main__":
     main()
