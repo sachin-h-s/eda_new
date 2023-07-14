@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pandas_profiling as pp
 
 def load_data(file):
     if file.name.endswith('.csv'):
@@ -22,12 +23,14 @@ def main():
         st.subheader("Data Preview")
         st.dataframe(data.head())
 
-        # Perform your EDA here
-        # You can use Streamlit widgets and plot your visualizations using libraries like matplotlib or seaborn
+        # Generate pandas profiling report
+        profile = pp.ProfileReport(data)
 
-        # Example: Display summary statistics
-        st.subheader("Summary Statistics")
-        st.write(data.describe())
+        # Display the report using Streamlit
+        st.subheader("Pandas Profiling Report")
+        st.write(profile.to_html(), unsafe_allow_html=True)
+
+        # Perform additional EDA and visualizations if needed
 
 if __name__ == '__main__':
     main()
