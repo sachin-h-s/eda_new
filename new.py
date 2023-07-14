@@ -1,47 +1,33 @@
-import pandas as pd
 import streamlit as st
-import pandas_profiling
-
+import pandas as pd
 
 def load_data(file):
-    file_extension = file.name.split(".")[-1]
-
-    if file_extension == "csv":
-        return pd.read_csv(file)
-    elif file_extension == "xlsx":
-        return pd.read_excel(file)
-    elif file_extension == "txt":
-        return pd.read_csv(file, delimiter="\t")
+    if file.endswith('.csv'):
+        data = pd.read_csv(file)
+    elif file.endswith(('.xls', '.xlsx')):
+        data = pd.read_excel(file)
     else:
-        return None
-
+        raise ValueError("Unsupported file format. Only CSV and Excel files are supported.")
+    return data
 
 def main():
-    st.title("Exploratory Data Analysis App")
+    st.title("Exploratory Data Analysis")
+    st.sidebar.title("File Upload")
 
-    # Data loading options
-    data_source = st.sidebar.selectbox("Select Data Source", ["CSV", "XLSX", "TXT"])
-
-    if data_source == "CSV":
-        file = st.file_uploader("Upload CSV file", type=["csv"])
-    elif data_source == "XLSX":
-        file = st.file_uploader("Upload XLSX file", type=["xlsx"])
-    elif data_source == "TXT":
-        file = st.file_uploader("Upload TXT file", type=["txt"])
-    else:
-        file = None
-
+    file = st.sidebar.file_uploader("Upload a CSV or Excel file", type=["csv", "xls", "xlsx"])
     if file is not None:
-        df = load_data(file)
+        data = load_data(file)
+        st.success(f"File '{file.name}' successfully loaded!")
 
-        if df is not None:
-            st.subheader("Preview of the Dataset")
-            st.dataframe(df.head())
+        st.subheader("Data Preview")
+        st.dataframe(data.head())
 
-            if st.button("Generate Report"):
-                profile = pandas_profiling.ProfileReport(df)
-                st_profile_report(profile)
+        # Perform your EDA here
+        # You can use Streamlit widgets and plot your visualizations using libraries like matplotlib or seaborn
 
+        # Example: Display summary statistics
+        st.subheader("Summary Statistics")
+        st.write(data.describe())
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
