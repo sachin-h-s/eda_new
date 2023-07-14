@@ -2,9 +2,9 @@ import streamlit as st
 import pandas as pd
 
 def load_data(file):
-    if file.endswith('.csv'):
+    if file.name.endswith('.csv'):
         data = pd.read_csv(file)
-    elif file.endswith(('.xls', '.xlsx')):
+    elif file.name.endswith(('.xls', '.xlsx')):
         data = pd.read_excel(file)
     else:
         raise ValueError("Unsupported file format. Only CSV and Excel files are supported.")
