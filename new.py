@@ -1,36 +1,38 @@
 import streamlit as st
 import pandas as pd
-import pandas_profiling as pp
+from pandas_profiling import ProfileReport
+import base64
 
-def load_data(file):
-    if file.name.endswith('.csv'):
-        data = pd.read_csv(file)
-    elif file.name.endswith(('.xls', '.xlsx')):
-        data = pd.read_excel(file)
-    else:
-        raise ValueError("Unsupported file format. Only CSV and Excel files are supported.")
-    return data
+def download_link(object_to_download, download_filename, download_link_text):
+    """
+    Helper function to generate download links for generated reports.
+    """
+    if isinstance(object_to_download, pd.DataFrame):
+        object_to_download = object_to_download.to_csv(index=False)
+
+    b64 = base64.b64encode(object_to_download.encode()).decode()
+    href = f'<a href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
+    return href
 
 def main():
-    st.title("Exploratory Data Analysis")
-    st.sidebar.title("File Upload")
+    st.title("Pandas Profiling App")
 
-    file = st.sidebar.file_uploader("Upload a CSV or Excel file", type=["csv", "xls", "xlsx"])
-    if file is not None:
-        data = load_data(file)
-        st.success(f"File '{file.name}' successfully loaded!")
+    # File uploader
+    uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
-        st.subheader("Data Preview")
-        st.dataframe(data.head())
+    if uploaded_file is not None:
+        # Read the file
+        df = pd.read_csv(uploaded_file)
 
-        # Generate pandas profiling report
-        profile = pp.ProfileReport(data)
+        # Generate the pandas profiling report
+        profile = ProfileReport(df, explorative=True)
 
         # Display the report using Streamlit
-        st.subheader("Pandas Profiling Report")
         st.write(profile.to_html(), unsafe_allow_html=True)
 
-        # Perform additional EDA and visualizations if needed
+        # Download link for the report
+        st.markdown(download_link(profile.to_file("report.html"), "report.html", "Download Report"), unsafe_allow_html=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
